@@ -35,6 +35,13 @@ package:
     - 'amazon-textract-response-parser'
 
 functions:
+  registroEntradaSalida:
+    handler: api-medicamentos/registro_entrada_salida.lambda_handler
+    events:
+      - http:
+          path: registroEntradaSalida
+          method: post
+          cors: true
   # crear:
   #   handler: comentario.lambda_handler
   #   memorySize: 512
