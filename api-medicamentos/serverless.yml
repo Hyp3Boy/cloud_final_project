@@ -11,11 +11,13 @@ provider:
   environment:
     TABLE_NAME: ${sls:stage}-meds-table
     BUCKET_IMG: ${sls:stage}-meds-imagen
+    FARMACIA_TABLE: ${sls:stage}-farmacia-table
 
   region: us-east-1
 
 plugins:
   - serverless-python-requirements
+  - "@agiledigital/serverless-sns-sqs-lambda"
 
 custom:
   pythonRequirements:
@@ -35,39 +37,6 @@ package:
     - 'amazon-textract-response-parser'
 
 functions:
-  registroEntradaSalida:
-    handler: api-medicamentos/registro_entrada_salida.lambda_handler
-    events:
-      - http:
-          path: registroEntradaSalida
-          method: post
-          cors: true
-          
-  administrarUsuarios:
-    handler: api-medicamentos/administrar_usuarios.lambda_handler
-    events:
-      - http:
-          path: administrarUsuarios
-          method: any 
-          cors: true
-  generarInformes:
-    handler: path/to/generar_informes.lambda_handler  # Actualiza con la ruta correcta
-    events:
-      - http:
-          path: generar-informes
-          method: get
-          cors: true
-
-  # crear:
-  #   handler: comentario.lambda_handler
-  #   memorySize: 512
-  #   events:
-  #     - http:
-  #         path: /comentario/crear
-  #         method: post
-  #         # Enable CORS. Don't forget to return the right header in your response
-  #         cors: true
-  #         integration: lambda
   scan_meds:
     handler: scan_meds.lambda_handler
     events:
@@ -78,6 +47,34 @@ functions:
     handler: new_meds.lambda_handler
     events:
       - sns: arn:aws:sns:us-east-1:223794358031:NuevoMedicamento
+  new_farmacia:
+    handler: new_farmacia.lambda_handler
+    events:
+      - http:
+          path: /farmacia/crear
+          method: post
+          cors: true
+          integration: lambda
+  createfarmaciaT:
+    handler: create_farmacia.lambda_handler
+    events:
+      #- sns: arn:aws:sns:us-east-1:201115287456:PROY_NuevaIMG
+      #- sns: ${self:provider.environment.SNS_LETTER}
+      ########
+      - snsSqs:
+          name: SQSFarmaciaEventQueue
+          topicArn: arn:aws:sns:us-east-1:223794358031:NuevaFarmacia
+          #Ref: SNSTopic${self:provider.environment.SNS_LETTER}
+          batchSize: 2 # Optional - default value is 10
+          maximumBatchingWindowInSeconds: 10 # optional - default is 0 (no batch window)
+          maxRetryCount: 2 # Optional - default value is 5
+          kmsDataKeyReusePeriodSeconds: 600 # optional - AWS default is 300 seconds
+          deadLetterMessageRetentionPeriodSeconds: 1209600 # optional - AWS default is 345600 secs (4 days)
+          visibilityTimeout: 120 # optional (in seconds) - AWS default is 30 secs
+          rawMessageDelivery: true # Optional - default value is true
+      #######
+    # layers:
+    #   - Ref: PythonRequirementsLambdaLayer
 
 resources:
   Resources:
@@ -96,28 +93,19 @@ resources:
           - AttributeName: info
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
-
-    RegistroEntradaSalidaTable:
-      Type: 'AWS::DynamoDB::Table'
+    TablaFarmacias:
+      Type: AWS::DynamoDB::Table
       Properties:
-        TableName: 'RegistroEntradaSalida'
+        TableName: ${self:provider.environment.FARMACIA_TABLE}
         AttributeDefinitions:
-          - AttributeName: 'employee_id'
-            AttributeType: 'S'
-          - AttributeName: 'timestamp'
-            AttributeType: 'S'
+          - AttributeName: tenant_id
+            AttributeType: S
+          - AttributeName: farmacia_name
+            AttributeType: S
         KeySchema:
-          - AttributeName: 'employee_id'
-            KeyType: 'HASH'
-          - AttributeName: 'timestamp'
-            KeyType: 'RANGE'
+          - AttributeName: tenant_id
+            KeyType: HASH
+          - AttributeName: farmacia_name
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
-    # IMGBucket:
 
-    # IMGBucket:
-    #   Type: AWS::S3::Bucket
-    #   Properties:
-    #     BucketName: ${self:provider.environment.BUCKET_IMG}
-    #     AccessControl: Private

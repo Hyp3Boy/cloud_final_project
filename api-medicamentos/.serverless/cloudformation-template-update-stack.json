@@ -83,6 +83,18 @@
         "LogGroupName": "/aws/lambda/api-proy-dev-new_meds"
       }
     },
+    "NewUnderscorefarmaciaLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/api-proy-dev-new_farmacia"
+      }
+    },
+    "CreatefarmaciaTLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/api-proy-dev-createfarmaciaT"
+      }
+    },
     "ScanUnderscoremedsLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -90,7 +102,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/api-proy/dev/1701031534437-2023-11-26T20:45:34.437Z/api-proy.zip"
+          "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
         },
         "Handler": "scan_meds.lambda_handler",
         "Runtime": "python3.9",
@@ -100,7 +112,8 @@
         "Environment": {
           "Variables": {
             "TABLE_NAME": "dev-meds-table",
-            "BUCKET_IMG": "dev-meds-imagen"
+            "BUCKET_IMG": "dev-meds-imagen",
+            "FARMACIA_TABLE": "dev-farmacia-table"
           }
         },
         "Role": "arn:aws:iam::223794358031:role/LabRole"
@@ -116,7 +129,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/api-proy/dev/1701031534437-2023-11-26T20:45:34.437Z/api-proy.zip"
+          "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
         },
         "Handler": "new_meds.lambda_handler",
         "Runtime": "python3.9",
@@ -126,7 +139,8 @@
         "Environment": {
           "Variables": {
             "TABLE_NAME": "dev-meds-table",
-            "BUCKET_IMG": "dev-meds-imagen"
+            "BUCKET_IMG": "dev-meds-imagen",
+            "FARMACIA_TABLE": "dev-farmacia-table"
           }
         },
         "Role": "arn:aws:iam::223794358031:role/LabRole"
@@ -135,24 +149,98 @@
         "NewUnderscoremedsLogGroup"
       ]
     },
-    "ScanUnderscoremedsLambdaVersion2iAU7sC3h8J1JLL4yMoeVusYCsr4APLyvexf4jA": {
+    "NewUnderscorefarmaciaLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
+        },
+        "Handler": "new_farmacia.lambda_handler",
+        "Runtime": "python3.9",
+        "FunctionName": "api-proy-dev-new_farmacia",
+        "MemorySize": 256,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": "dev-meds-table",
+            "BUCKET_IMG": "dev-meds-imagen",
+            "FARMACIA_TABLE": "dev-farmacia-table"
+          }
+        },
+        "Role": "arn:aws:iam::223794358031:role/LabRole"
+      },
+      "DependsOn": [
+        "NewUnderscorefarmaciaLogGroup"
+      ]
+    },
+    "CreatefarmaciaTLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
+        },
+        "Handler": "create_farmacia.lambda_handler",
+        "Runtime": "python3.9",
+        "FunctionName": "api-proy-dev-createfarmaciaT",
+        "MemorySize": 256,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": "dev-meds-table",
+            "BUCKET_IMG": "dev-meds-imagen",
+            "FARMACIA_TABLE": "dev-farmacia-table"
+          }
+        },
+        "Role": "arn:aws:iam::223794358031:role/LabRole"
+      },
+      "DependsOn": [
+        "CreatefarmaciaTLogGroup"
+      ]
+    },
+    "ScanUnderscoremedsLambdaVersioni225yoWwpwRh92Sr75haGAUoHFsoFIiTnUiTDlzLn0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ScanUnderscoremedsLambdaFunction"
         },
-        "CodeSha256": "2tOPCwKMGBOKdgwogruSDEfciObbF1vXfY9PDyHaH4A="
+        "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
       }
     },
-    "NewUnderscoremedsLambdaVersionT4CfLBYyl8rJRZsa0D2GtMIZvbQo9TarCAc99UP1z0": {
+    "NewUnderscoremedsLambdaVersionRVXVkndGZTnnRExYoA4RQkPFt7BeLvZx8lRMpFlYfI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "NewUnderscoremedsLambdaFunction"
         },
-        "CodeSha256": "2tOPCwKMGBOKdgwogruSDEfciObbF1vXfY9PDyHaH4A="
+        "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
+      }
+    },
+    "NewUnderscorefarmaciaLambdaVersionxPZ6c5GJZvONfr80OeweNV2zkNHsRkyIJ7JDJ8sYT8E": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "NewUnderscorefarmaciaLambdaFunction"
+        },
+        "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
+      }
+    },
+    "CreatefarmaciaTLambdaVersionqCsnvs9lCeK6VOHEnydrZRlNTMXOV6HHppXOKXUk0": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "CreatefarmaciaTLambdaFunction"
+        },
+        "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
       }
     },
     "S3BucketDevmedsimagen": {
@@ -202,6 +290,174 @@
         },
         "SourceAccount": {
           "Ref": "AWS::AccountId"
+        }
+      }
+    },
+    "ApiGatewayRestApi": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "dev-api-proy",
+        "EndpointConfiguration": {
+          "Types": [
+            "EDGE"
+          ]
+        },
+        "Policy": ""
+      }
+    },
+    "ApiGatewayResourceCrearDashfarmacia": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "crear-farmacia",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodCrearDashfarmaciaOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceCrearDashfarmacia"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodCrearDashfarmaciaPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceCrearDashfarmacia"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "NewUnderscorefarmaciaLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "NewUnderscorefarmaciaLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayDeployment1701039878812": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "StageName": "dev"
+      },
+      "DependsOn": [
+        "ApiGatewayMethodCrearDashfarmaciaOptions",
+        "ApiGatewayMethodCrearDashfarmaciaPost"
+      ]
+    },
+    "NewUnderscorefarmaciaLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "NewUnderscorefarmaciaLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
         }
       }
     },
@@ -258,6 +514,129 @@
         ],
         "BillingMode": "PAY_PER_REQUEST"
       }
+    },
+    "TablaFarmacias": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "dev-farmacia-table",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "tenant_id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "farmacia_name",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "tenant_id",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "farmacia_name",
+            "KeyType": "RANGE"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST"
+      }
+    },
+    "CreatefarmaciaTEventSourceMappingSQSSQSFarmaciaEventQueueQueue": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "BatchSize": 2,
+        "MaximumBatchingWindowInSeconds": 10,
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "SQSFarmaciaEventQueueQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "CreatefarmaciaTLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Enabled": "True"
+      }
+    },
+    "SQSFarmaciaEventQueueDeadLetterQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "QueueName": "api-proy-dev-CreatefarmaciaTSQSFarmaciaEventQueueDeadLetterQueue",
+        "KmsDataKeyReusePeriodSeconds": 600,
+        "MessageRetentionPeriod": 1209600
+      }
+    },
+    "SQSFarmaciaEventQueueQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "QueueName": "api-proy-dev-CreatefarmaciaTSQSFarmaciaEventQueueQueue",
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "SQSFarmaciaEventQueueDeadLetterQueue",
+              "Arn"
+            ]
+          },
+          "maxReceiveCount": 2
+        },
+        "KmsDataKeyReusePeriodSeconds": 600,
+        "VisibilityTimeout": 120
+      }
+    },
+    "SQSFarmaciaEventQueueQueuePolicy": {
+      "Type": "AWS::SQS::QueuePolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Id": "api-proy-dev-CreatefarmaciaTSQSFarmaciaEventQueueQueue",
+          "Statement": [
+            {
+              "Sid": "api-proy-dev-CreatefarmaciaTSQSFarmaciaEventQueueSid",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "sns.amazonaws.com"
+              },
+              "Action": "SQS:SendMessage",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SQSFarmaciaEventQueueQueue",
+                  "Arn"
+                ]
+              },
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": [
+                    "arn:aws:sns:us-east-1:223794358031:NuevaFarmacia"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "Queues": [
+          {
+            "Ref": "SQSFarmaciaEventQueueQueue"
+          }
+        ]
+      }
+    },
+    "SubscribeSQSFarmaciaEventQueueTopic": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Endpoint": {
+          "Fn::GetAtt": [
+            "SQSFarmaciaEventQueueQueue",
+            "Arn"
+          ]
+        },
+        "Protocol": "sqs",
+        "TopicArn": "arn:aws:sns:us-east-1:223794358031:NuevaFarmacia",
+        "RawMessageDelivery": true
+      }
     }
   },
   "Outputs": {
@@ -272,7 +651,7 @@
     "ScanUnderscoremedsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScanUnderscoremedsLambdaVersion2iAU7sC3h8J1JLL4yMoeVusYCsr4APLyvexf4jA"
+        "Ref": "ScanUnderscoremedsLambdaVersioni225yoWwpwRh92Sr75haGAUoHFsoFIiTnUiTDlzLn0"
       },
       "Export": {
         "Name": "sls-api-proy-dev-ScanUnderscoremedsLambdaFunctionQualifiedArn"
@@ -281,10 +660,54 @@
     "NewUnderscoremedsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "NewUnderscoremedsLambdaVersionT4CfLBYyl8rJRZsa0D2GtMIZvbQo9TarCAc99UP1z0"
+        "Ref": "NewUnderscoremedsLambdaVersionRVXVkndGZTnnRExYoA4RQkPFt7BeLvZx8lRMpFlYfI"
       },
       "Export": {
         "Name": "sls-api-proy-dev-NewUnderscoremedsLambdaFunctionQualifiedArn"
+      }
+    },
+    "NewUnderscorefarmaciaLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "NewUnderscorefarmaciaLambdaVersionxPZ6c5GJZvONfr80OeweNV2zkNHsRkyIJ7JDJ8sYT8E"
+      },
+      "Export": {
+        "Name": "sls-api-proy-dev-NewUnderscorefarmaciaLambdaFunctionQualifiedArn"
+      }
+    },
+    "CreatefarmaciaTLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "CreatefarmaciaTLambdaVersionqCsnvs9lCeK6VOHEnydrZRlNTMXOV6HHppXOKXUk0"
+      },
+      "Export": {
+        "Name": "sls-api-proy-dev-CreatefarmaciaTLambdaFunctionQualifiedArn"
+      }
+    },
+    "ServiceEndpoint": {
+      "Description": "URL of the service endpoint",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "ApiGatewayRestApi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/dev"
+          ]
+        ]
+      },
+      "Export": {
+        "Name": "sls-api-proy-dev-ServiceEndpoint"
       }
     }
   }
