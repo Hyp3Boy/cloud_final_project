@@ -9,6 +9,7 @@ import urllib.parse
 import json
 import trp.trp2 as t2
 import random
+from textractor.data.constants import TextractFeatures
 
 print("Loading function")
 s3 = boto3.client("s3")
@@ -23,20 +24,28 @@ def generate_random_code():
 
 
 def get_textract_data(bucket_name, document_key):
+    # TODO
     print("Loading getTextractData")
     # Call Amazon Textract
     print(textract)
-    response = textract.analyze_document(
-        Document={"S3Object": {"Bucket": bucket_name, "Name": document_key}},
-        FeatureTypes=["LAYOUT"],
+    # response = textract.analyze_document(
+    #     Document={"S3Object": {"Bucket": bucket_name, "Name": document_key}},
+    #     FeatureTypes=["LAYOUT"],
+    # )
+
+    input_document = {"S3Object": {"Bucket": bucket_name, "Name": document_key}}
+    document = textract.analyze_document(
+        file_source=input_document, features=[TextractFeatures.LAYOUT], save_image=True
     )
 
-    d = t2.TDocumentSchema().load(response)
-    page = d.pages[0]
+    # d = t2.TDocumentSchema().load(response)
+    # page = d.pages[0]
+    # page = response["Blocks"][0]
 
     data_dict = {}
 
-    data_dict["NAME"] = page.page_layout.titles[0].text
+    data_dict["NAME"] = document.pages[0].page_layout.titles[0].text
+    # data_dict["NAME"] = "Paracetamol"
 
     data_dict["CODIGO"] = generate_random_code()
 

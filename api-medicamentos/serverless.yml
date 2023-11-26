@@ -45,14 +45,14 @@ functions:
   #         # Enable CORS. Don't forget to return the right header in your response
   #         cors: true
   #         integration: lambda
-  scan:
-    handler: scan_med.lambda_handler
+  scan_meds:
+    handler: scan_meds.lambda_handler
     events:
       - s3:
           bucket: ${sls:stage}-meds-imagen
           event: s3:ObjectCreated:*
-  new_med:
-    handler: new_med.lambda_handler
+  new_meds:
+    handler: new_meds.lambda_handler
     events:
       - sns: arn:aws:sns:us-east-1:223794358031:NuevoMedicamento
 

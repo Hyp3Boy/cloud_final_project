@@ -71,30 +71,30 @@
         }
       }
     },
-    "ScanLogGroup": {
+    "ScanUnderscoremedsLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/api-proy-dev-scan"
+        "LogGroupName": "/aws/lambda/api-proy-dev-scan_meds"
       }
     },
-    "NewUnderscoremedLogGroup": {
+    "NewUnderscoremedsLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/api-proy-dev-new_med"
+        "LogGroupName": "/aws/lambda/api-proy-dev-new_meds"
       }
     },
-    "ScanLambdaFunction": {
+    "ScanUnderscoremedsLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/api-proy/dev/1700983605261-2023-11-26T07:26:45.261Z/api-proy.zip"
+          "S3Key": "serverless/api-proy/dev/1700988226436-2023-11-26T08:43:46.436Z/api-proy.zip"
         },
-        "Handler": "scan_med.lambda_handler",
+        "Handler": "scan_meds.lambda_handler",
         "Runtime": "python3.9",
-        "FunctionName": "api-proy-dev-scan",
+        "FunctionName": "api-proy-dev-scan_meds",
         "MemorySize": 256,
         "Timeout": 6,
         "Environment": {
@@ -106,21 +106,21 @@
         "Role": "arn:aws:iam::223794358031:role/LabRole"
       },
       "DependsOn": [
-        "ScanLogGroup"
+        "ScanUnderscoremedsLogGroup"
       ]
     },
-    "NewUnderscoremedLambdaFunction": {
+    "NewUnderscoremedsLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/api-proy/dev/1700983605261-2023-11-26T07:26:45.261Z/api-proy.zip"
+          "S3Key": "serverless/api-proy/dev/1700988226436-2023-11-26T08:43:46.436Z/api-proy.zip"
         },
-        "Handler": "new_med.lambda_handler",
+        "Handler": "new_meds.lambda_handler",
         "Runtime": "python3.9",
-        "FunctionName": "api-proy-dev-new_med",
+        "FunctionName": "api-proy-dev-new_meds",
         "MemorySize": 256,
         "Timeout": 6,
         "Environment": {
@@ -132,27 +132,27 @@
         "Role": "arn:aws:iam::223794358031:role/LabRole"
       },
       "DependsOn": [
-        "NewUnderscoremedLogGroup"
+        "NewUnderscoremedsLogGroup"
       ]
     },
-    "ScanLambdaVersiona9wWCEOedgrmJ6VoOmDs7z1ihyPQo8XoEI7jFa7x0": {
+    "ScanUnderscoremedsLambdaVersionwfRvHZS5FtOUrcV7kfJ3lXBTOvHHGheKYmBciTu7Ctk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "ScanLambdaFunction"
+          "Ref": "ScanUnderscoremedsLambdaFunction"
         },
-        "CodeSha256": "N+W+gRzUdXVcWElQeEe145czOlIe+5b9gEFiqoOAMlE="
+        "CodeSha256": "mjihW71J22a78SBQEbrH4vhiWGLBQI8mc4mWZYMlpYQ="
       }
     },
-    "NewUnderscoremedLambdaVersionkp3L8wVc3fm6uwItdZqxPjDedIurnqnAVaJnGCaloM": {
+    "NewUnderscoremedsLambdaVersionFhmWsMbnyTcgTTgr4vC2smg4H38CcaoHJI1kWuOE3pI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "NewUnderscoremedLambdaFunction"
+          "Ref": "NewUnderscoremedsLambdaFunction"
         },
-        "CodeSha256": "N+W+gRzUdXVcWElQeEe145czOlIe+5b9gEFiqoOAMlE="
+        "CodeSha256": "mjihW71J22a78SBQEbrH4vhiWGLBQI8mc4mWZYMlpYQ="
       }
     },
     "S3BucketDevmedsimagen": {
@@ -165,7 +165,7 @@
               "Event": "s3:ObjectCreated:*",
               "Function": {
                 "Fn::GetAtt": [
-                  "ScanLambdaFunction",
+                  "ScanUnderscoremedsLambdaFunction",
                   "Arn"
                 ]
               }
@@ -174,15 +174,15 @@
         }
       },
       "DependsOn": [
-        "ScanLambdaPermissionDevmedsimagenS3"
+        "ScanUnderscoremedsLambdaPermissionDevmedsimagenS3"
       ]
     },
-    "ScanLambdaPermissionDevmedsimagenS3": {
+    "ScanUnderscoremedsLambdaPermissionDevmedsimagenS3": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "ScanLambdaFunction",
+            "ScanUnderscoremedsLambdaFunction",
             "Arn"
           ]
         },
@@ -205,25 +205,25 @@
         }
       }
     },
-    "NewUnderscoremedSnsSubscriptionNuevoMedicamento": {
+    "NewUnderscoremedsSnsSubscriptionNuevoMedicamento": {
       "Type": "AWS::SNS::Subscription",
       "Properties": {
         "TopicArn": "arn:aws:sns:us-east-1:223794358031:NuevoMedicamento",
         "Protocol": "lambda",
         "Endpoint": {
           "Fn::GetAtt": [
-            "NewUnderscoremedLambdaFunction",
+            "NewUnderscoremedsLambdaFunction",
             "Arn"
           ]
         }
       }
     },
-    "NewUnderscoremedLambdaPermissionNuevoMedicamentoSNS": {
+    "NewUnderscoremedsLambdaPermissionNuevoMedicamentoSNS": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "NewUnderscoremedLambdaFunction",
+            "NewUnderscoremedsLambdaFunction",
             "Arn"
           ]
         },
@@ -269,22 +269,22 @@
         "Name": "sls-api-proy-dev-ServerlessDeploymentBucketName"
       }
     },
-    "ScanLambdaFunctionQualifiedArn": {
+    "ScanUnderscoremedsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScanLambdaVersiona9wWCEOedgrmJ6VoOmDs7z1ihyPQo8XoEI7jFa7x0"
+        "Ref": "ScanUnderscoremedsLambdaVersionwfRvHZS5FtOUrcV7kfJ3lXBTOvHHGheKYmBciTu7Ctk"
       },
       "Export": {
-        "Name": "sls-api-proy-dev-ScanLambdaFunctionQualifiedArn"
+        "Name": "sls-api-proy-dev-ScanUnderscoremedsLambdaFunctionQualifiedArn"
       }
     },
-    "NewUnderscoremedLambdaFunctionQualifiedArn": {
+    "NewUnderscoremedsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "NewUnderscoremedLambdaVersionkp3L8wVc3fm6uwItdZqxPjDedIurnqnAVaJnGCaloM"
+        "Ref": "NewUnderscoremedsLambdaVersionFhmWsMbnyTcgTTgr4vC2smg4H38CcaoHJI1kWuOE3pI"
       },
       "Export": {
-        "Name": "sls-api-proy-dev-NewUnderscoremedLambdaFunctionQualifiedArn"
+        "Name": "sls-api-proy-dev-NewUnderscoremedsLambdaFunctionQualifiedArn"
       }
     }
   }
