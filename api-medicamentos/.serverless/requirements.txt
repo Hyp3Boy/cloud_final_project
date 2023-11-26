@@ -1,0 +1,2 @@
+- amazon-textract-response-parser==1.0.2
+- trp==1.0.6

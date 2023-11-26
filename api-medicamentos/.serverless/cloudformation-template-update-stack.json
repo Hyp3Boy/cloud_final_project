@@ -1,0 +1,291 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "ServerlessDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ServerlessDeploymentBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ScanLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/api-proy-dev-scan"
+      }
+    },
+    "NewUnderscoremedLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/api-proy-dev-new_med"
+      }
+    },
+    "ScanLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/api-proy/dev/1700983605261-2023-11-26T07:26:45.261Z/api-proy.zip"
+        },
+        "Handler": "scan_med.lambda_handler",
+        "Runtime": "python3.9",
+        "FunctionName": "api-proy-dev-scan",
+        "MemorySize": 256,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": "dev-meds-table",
+            "BUCKET_IMG": "dev-meds-imagen"
+          }
+        },
+        "Role": "arn:aws:iam::223794358031:role/LabRole"
+      },
+      "DependsOn": [
+        "ScanLogGroup"
+      ]
+    },
+    "NewUnderscoremedLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/api-proy/dev/1700983605261-2023-11-26T07:26:45.261Z/api-proy.zip"
+        },
+        "Handler": "new_med.lambda_handler",
+        "Runtime": "python3.9",
+        "FunctionName": "api-proy-dev-new_med",
+        "MemorySize": 256,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": "dev-meds-table",
+            "BUCKET_IMG": "dev-meds-imagen"
+          }
+        },
+        "Role": "arn:aws:iam::223794358031:role/LabRole"
+      },
+      "DependsOn": [
+        "NewUnderscoremedLogGroup"
+      ]
+    },
+    "ScanLambdaVersiona9wWCEOedgrmJ6VoOmDs7z1ihyPQo8XoEI7jFa7x0": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "ScanLambdaFunction"
+        },
+        "CodeSha256": "N+W+gRzUdXVcWElQeEe145czOlIe+5b9gEFiqoOAMlE="
+      }
+    },
+    "NewUnderscoremedLambdaVersionkp3L8wVc3fm6uwItdZqxPjDedIurnqnAVaJnGCaloM": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "NewUnderscoremedLambdaFunction"
+        },
+        "CodeSha256": "N+W+gRzUdXVcWElQeEe145czOlIe+5b9gEFiqoOAMlE="
+      }
+    },
+    "S3BucketDevmedsimagen": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "dev-meds-imagen",
+        "NotificationConfiguration": {
+          "LambdaConfigurations": [
+            {
+              "Event": "s3:ObjectCreated:*",
+              "Function": {
+                "Fn::GetAtt": [
+                  "ScanLambdaFunction",
+                  "Arn"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "ScanLambdaPermissionDevmedsimagenS3"
+      ]
+    },
+    "ScanLambdaPermissionDevmedsimagenS3": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ScanLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "s3.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":s3:::dev-meds-imagen"
+            ]
+          ]
+        },
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    },
+    "NewUnderscoremedSnsSubscriptionNuevoMedicamento": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "TopicArn": "arn:aws:sns:us-east-1:223794358031:NuevoMedicamento",
+        "Protocol": "lambda",
+        "Endpoint": {
+          "Fn::GetAtt": [
+            "NewUnderscoremedLambdaFunction",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "NewUnderscoremedLambdaPermissionNuevoMedicamentoSNS": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "NewUnderscoremedLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "sns.amazonaws.com",
+        "SourceArn": "arn:aws:sns:us-east-1:223794358031:NuevoMedicamento"
+      }
+    },
+    "TablaMedicinas": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "dev-meds-table",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "fabricant_id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "fabricant_id",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "name",
+            "KeyType": "RANGE"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST"
+      }
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": {
+        "Ref": "ServerlessDeploymentBucket"
+      },
+      "Export": {
+        "Name": "sls-api-proy-dev-ServerlessDeploymentBucketName"
+      }
+    },
+    "ScanLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "ScanLambdaVersiona9wWCEOedgrmJ6VoOmDs7z1ihyPQo8XoEI7jFa7x0"
+      },
+      "Export": {
+        "Name": "sls-api-proy-dev-ScanLambdaFunctionQualifiedArn"
+      }
+    },
+    "NewUnderscoremedLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "NewUnderscoremedLambdaVersionkp3L8wVc3fm6uwItdZqxPjDedIurnqnAVaJnGCaloM"
+      },
+      "Export": {
+        "Name": "sls-api-proy-dev-NewUnderscoremedLambdaFunctionQualifiedArn"
+      }
+    }
+  }
+}
