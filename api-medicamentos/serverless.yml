@@ -42,6 +42,15 @@ functions:
           path: registroEntradaSalida
           method: post
           cors: true
+          
+  administrarUsuarios:
+    handler: api-medicamentos/administrar_usuarios.lambda_handler
+    events:
+      - http:
+          path: administrarUsuarios
+          method: any 
+          cors: true
+
   # crear:
   #   handler: comentario.lambda_handler
   #   memorySize: 512
