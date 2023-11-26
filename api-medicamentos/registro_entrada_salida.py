@@ -1,34 +1,29 @@
 import boto3
+import json
 from datetime import datetime
 
+dynamodb_client = boto3.client('dynamodb')
+table_name = 'RegistroEntradaSalida'
+
 def lambda_handler(event, context):
-    rekognition_client = boto3.client('rekognition')
-    dynamodb_client = boto3.client('dynamodb')
-
-    image_data = event['image_data']
-
     try:
-        response = rekognition_client.search_faces_by_image(
-            CollectionId='tu_coleccion_de_rekognition',
-            Image={'Bytes': image_data}
-        )
-    except Exception as e:
-        print(e)
-        return {'statusCode': 500, 'body': 'Error en el reconocimiento facial'}
+        data = json.loads(event['body'])
+        employee_id = data['employee_id']
+        tipo_registro = data['tipo_registro'] 
+    except KeyError:
+        return {'statusCode': 400, 'body': json.dumps('Faltan datos necesarios')}
 
-    employee_id = response['FaceMatches'][0]['Face']['ExternalImageId']
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     try:
         dynamodb_client.put_item(
-            TableName='tu_tabla_dynamodb',
+            TableName=table_name,
             Item={
                 'employee_id': {'S': employee_id},
-                'timestamp': {'S': timestamp}
+                'timestamp': {'S': timestamp},
+                'tipo_registro': {'S': tipo_registro}
             }
         )
+        return {'statusCode': 200, 'body': json.dumps(f'Registro de {tipo_registro} exitoso para el empleado {employee_id}')}
     except Exception as e:
-        print(e)
-        return {'statusCode': 500, 'body': 'Error al registrar en DynamoDB'}
-
-    return {'statusCode': 200, 'body': 'Registro exitoso'}
+        return {'statusCode': 500, 'body': json.dumps('Error al registrar en DynamoDB: ' + str(e))}
