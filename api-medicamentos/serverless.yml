@@ -50,6 +50,13 @@ functions:
           path: administrarUsuarios
           method: any 
           cors: true
+  generarInformes:
+    handler: path/to/generar_informes.lambda_handler  # Actualiza con la ruta correcta
+    events:
+      - http:
+          path: generar-informes
+          method: get
+          cors: true
 
   # crear:
   #   handler: comentario.lambda_handler
