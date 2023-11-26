@@ -35,6 +35,29 @@ package:
     - 'amazon-textract-response-parser'
 
 functions:
+  registroEntradaSalida:
+    handler: api-medicamentos/registro_entrada_salida.lambda_handler
+    events:
+      - http:
+          path: registroEntradaSalida
+          method: post
+          cors: true
+          
+  administrarUsuarios:
+    handler: api-medicamentos/administrar_usuarios.lambda_handler
+    events:
+      - http:
+          path: administrarUsuarios
+          method: any 
+          cors: true
+  generarInformes:
+    handler: path/to/generar_informes.lambda_handler  # Actualiza con la ruta correcta
+    events:
+      - http:
+          path: generar-informes
+          method: get
+          cors: true
+
   # crear:
   #   handler: comentario.lambda_handler
   #   memorySize: 512
@@ -72,8 +95,27 @@ resources:
             KeyType: HASH
           - AttributeName: info
             KeyType: RANGE
-        # Set the capacity to auto-scale
         BillingMode: PAY_PER_REQUEST
+
+    RegistroEntradaSalidaTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: 'RegistroEntradaSalida'
+        AttributeDefinitions:
+          - AttributeName: 'employee_id'
+            AttributeType: 'S'
+          - AttributeName: 'timestamp'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'employee_id'
+            KeyType: 'HASH'
+          - AttributeName: 'timestamp'
+            KeyType: 'RANGE'
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+    # IMGBucket:
+
     # IMGBucket:
     #   Type: AWS::S3::Bucket
     #   Properties:
