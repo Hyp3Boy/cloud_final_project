@@ -123,7 +123,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
+                "S3Key": "serverless/api-proy/dev/1701041737387-2023-11-26T23:35:37.387Z/api-proy.zip"
               },
               "Handler": "scan_meds.lambda_handler",
               "Runtime": "python3.9",
@@ -150,7 +150,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
+                "S3Key": "serverless/api-proy/dev/1701041737387-2023-11-26T23:35:37.387Z/api-proy.zip"
               },
               "Handler": "new_meds.lambda_handler",
               "Runtime": "python3.9",
@@ -177,7 +177,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
+                "S3Key": "serverless/api-proy/dev/1701041737387-2023-11-26T23:35:37.387Z/api-proy.zip"
               },
               "Handler": "new_farmacia.lambda_handler",
               "Runtime": "python3.9",
@@ -204,7 +204,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z/api-proy.zip"
+                "S3Key": "serverless/api-proy/dev/1701041737387-2023-11-26T23:35:37.387Z/api-proy.zip"
               },
               "Handler": "create_farmacia.lambda_handler",
               "Runtime": "python3.9",
@@ -224,44 +224,44 @@
               "CreatefarmaciaTLogGroup"
             ]
           },
-          "ScanUnderscoremedsLambdaVersioni225yoWwpwRh92Sr75haGAUoHFsoFIiTnUiTDlzLn0": {
+          "ScanUnderscoremedsLambdaVersionFHcqozYZeSnkOdGNr83rsi2mcaV2w0NEkvvioSk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ScanUnderscoremedsLambdaFunction"
               },
-              "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
+              "CodeSha256": "cRWLGhpr9xviBMpk+l8nCMcIqBrrbd9InGlKQidvmcg="
             }
           },
-          "NewUnderscoremedsLambdaVersionRVXVkndGZTnnRExYoA4RQkPFt7BeLvZx8lRMpFlYfI": {
+          "NewUnderscoremedsLambdaVersionr5cK6TtGXxqWkNpdhTzei84yws0HzaE3KeyTwMwxY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "NewUnderscoremedsLambdaFunction"
               },
-              "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
+              "CodeSha256": "cRWLGhpr9xviBMpk+l8nCMcIqBrrbd9InGlKQidvmcg="
             }
           },
-          "NewUnderscorefarmaciaLambdaVersionxPZ6c5GJZvONfr80OeweNV2zkNHsRkyIJ7JDJ8sYT8E": {
+          "NewUnderscorefarmaciaLambdaVersiontMpjYlWqoeksDNnlC8ZaNSm1vCePCIfQi93Hnurzl4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "NewUnderscorefarmaciaLambdaFunction"
               },
-              "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
+              "CodeSha256": "cRWLGhpr9xviBMpk+l8nCMcIqBrrbd9InGlKQidvmcg="
             }
           },
-          "CreatefarmaciaTLambdaVersionqCsnvs9lCeK6VOHEnydrZRlNTMXOV6HHppXOKXUk0": {
+          "CreatefarmaciaTLambdaVersionxss1rJNoLoeJZRh5ze0jJPcL2gOzPwNHmjH8V9CMRY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreatefarmaciaTLambdaFunction"
               },
-              "CodeSha256": "jERBpU2SWoAz2OLSn+fhUwhC1tuJRaj2avKl8vGfA2w="
+              "CodeSha256": "cRWLGhpr9xviBMpk+l8nCMcIqBrrbd9InGlKQidvmcg="
             }
           },
           "S3BucketDevmedsimagen": {
@@ -326,7 +326,7 @@
               "Policy": ""
             }
           },
-          "ApiGatewayResourceCrearDashfarmacia": {
+          "ApiGatewayResourceFarmacia": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
@@ -335,13 +335,25 @@
                   "RootResourceId"
                 ]
               },
-              "PathPart": "crear-farmacia",
+              "PathPart": "farmacia",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodCrearDashfarmaciaOptions": {
+          "ApiGatewayResourceFarmaciaCrear": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceFarmacia"
+              },
+              "PathPart": "crear",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodFarmaciaCrearOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "AuthorizationType": "NONE",
@@ -379,20 +391,20 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceCrearDashfarmacia"
+                "Ref": "ApiGatewayResourceFarmaciaCrear"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodCrearDashfarmaciaPost": {
+          "ApiGatewayMethodFarmaciaCrearPost": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "POST",
               "RequestParameters": {},
               "ResourceId": {
-                "Ref": "ApiGatewayResourceCrearDashfarmacia"
+                "Ref": "ApiGatewayResourceFarmaciaCrear"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -401,7 +413,7 @@
               "AuthorizationType": "NONE",
               "Integration": {
                 "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
+                "Type": "AWS",
                 "Uri": {
                   "Fn::Join": [
                     "",
@@ -424,15 +436,158 @@
                       "/invocations"
                     ]
                   ]
-                }
+                },
+                "PassthroughBehavior": "NEVER",
+                "RequestTemplates": {
+                  "application/json": "\n    #set( $body = $input.json(\"$\") )\n\n    \n  #define( $loop )\n    {\n    #foreach($key in $map.keySet())\n        #set( $k = $util.escapeJavaScript($key) )\n        #set( $v = $util.escapeJavaScript($map.get($key)).replaceAll(\"\\\\'\", \"'\") )\n        \"$k\":\n          \"$v\"\n          #if( $foreach.hasNext ) , #end\n    #end\n    }\n  #end\n\n  {\n    \"body\": $body,\n    \"method\": \"$context.httpMethod\",\n    \"principalId\": \"$context.authorizer.principalId\",\n    \"stage\": \"$context.stage\",\n\n    \"cognitoPoolClaims\" : {\n       \n       \"sub\": \"$context.authorizer.claims.sub\"\n    },\n\n    #set( $map = $context.authorizer )\n    \"enhancedAuthContext\": $loop,\n\n    #set( $map = $input.params().header )\n    \"headers\": $loop,\n\n    #set( $map = $input.params().querystring )\n    \"query\": $loop,\n\n    #set( $map = $input.params().path )\n    \"path\": $loop,\n\n    #set( $map = $context.identity )\n    \"identity\": $loop,\n\n    #set( $map = $stageVariables )\n    \"stageVariables\": $loop,\n\n    \"requestPath\": \"$context.resourcePath\"\n  }\n\n  ",
+                  "application/x-www-form-urlencoded": "\n    #define( $body )\n      {\n      #foreach( $token in $input.path('$').split('&') )\n        #set( $keyVal = $token.split('=') )\n        #set( $keyValSize = $keyVal.size() )\n        #if( $keyValSize >= 1 )\n          #set( $key = $util.escapeJavaScript($util.urlDecode($keyVal[0])) )\n          #if( $keyValSize >= 2 )\n            #set($val = $util.escapeJavaScript($util.urlDecode($keyVal[1])).replaceAll(\"\\\\'\",\"'\"))\n          #else\n            #set( $val = '' )\n          #end\n          \"$key\": \"$val\"#if($foreach.hasNext),#end\n        #end\n      #end\n      }\n    #end\n\n    \n  #define( $loop )\n    {\n    #foreach($key in $map.keySet())\n        #set( $k = $util.escapeJavaScript($key) )\n        #set( $v = $util.escapeJavaScript($map.get($key)).replaceAll(\"\\\\'\", \"'\") )\n        \"$k\":\n          \"$v\"\n          #if( $foreach.hasNext ) , #end\n    #end\n    }\n  #end\n\n  {\n    \"body\": $body,\n    \"method\": \"$context.httpMethod\",\n    \"principalId\": \"$context.authorizer.principalId\",\n    \"stage\": \"$context.stage\",\n\n    \"cognitoPoolClaims\" : {\n       \n       \"sub\": \"$context.authorizer.claims.sub\"\n    },\n\n    #set( $map = $context.authorizer )\n    \"enhancedAuthContext\": $loop,\n\n    #set( $map = $input.params().header )\n    \"headers\": $loop,\n\n    #set( $map = $input.params().querystring )\n    \"query\": $loop,\n\n    #set( $map = $input.params().path )\n    \"path\": $loop,\n\n    #set( $map = $context.identity )\n    \"identity\": $loop,\n\n    #set( $map = $stageVariables )\n    \"stageVariables\": $loop,\n\n    \"requestPath\": \"$context.resourcePath\"\n  }\n\n  "
+                },
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "SelectionPattern": "",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "400",
+                    "SelectionPattern": "[\\s\\S]*\\[400\\][\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "401",
+                    "SelectionPattern": "[\\s\\S]*\\[401\\][\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "403",
+                    "SelectionPattern": "[\\s\\S]*\\[403\\][\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "404",
+                    "SelectionPattern": "[\\s\\S]*\\[404\\][\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "422",
+                    "SelectionPattern": "[\\s\\S]*\\[422\\][\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "500",
+                    "SelectionPattern": "[\\s\\S]*(Process\\s?exited\\s?before\\s?completing\\s?request|\\[500\\])[\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "502",
+                    "SelectionPattern": "[\\s\\S]*\\[502\\][\\s\\S]*",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  },
+                  {
+                    "StatusCode": "504",
+                    "SelectionPattern": "([\\s\\S]*\\[504\\][\\s\\S]*)|(.*Task timed out after \\d+\\.\\d+ seconds$)",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'"
+                    },
+                    "ResponseTemplates": {}
+                  }
+                ]
               },
-              "MethodResponses": []
+              "MethodResponses": [
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "200"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "400"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "401"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "403"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "404"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "422"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "500"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "502"
+                },
+                {
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true
+                  },
+                  "ResponseModels": {},
+                  "StatusCode": "504"
+                }
+              ]
             },
             "DependsOn": [
               "NewUnderscorefarmaciaLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1701039878812": {
+          "ApiGatewayDeployment1701041734971": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -441,8 +596,8 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodCrearDashfarmaciaOptions",
-              "ApiGatewayMethodCrearDashfarmaciaPost"
+              "ApiGatewayMethodFarmaciaCrearOptions",
+              "ApiGatewayMethodFarmaciaCrearPost"
             ]
           },
           "NewUnderscorefarmaciaLambdaPermissionApiGateway": {
@@ -672,7 +827,7 @@
           "ScanUnderscoremedsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ScanUnderscoremedsLambdaVersioni225yoWwpwRh92Sr75haGAUoHFsoFIiTnUiTDlzLn0"
+              "Ref": "ScanUnderscoremedsLambdaVersionFHcqozYZeSnkOdGNr83rsi2mcaV2w0NEkvvioSk"
             },
             "Export": {
               "Name": "sls-api-proy-dev-ScanUnderscoremedsLambdaFunctionQualifiedArn"
@@ -681,7 +836,7 @@
           "NewUnderscoremedsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "NewUnderscoremedsLambdaVersionRVXVkndGZTnnRExYoA4RQkPFt7BeLvZx8lRMpFlYfI"
+              "Ref": "NewUnderscoremedsLambdaVersionr5cK6TtGXxqWkNpdhTzei84yws0HzaE3KeyTwMwxY"
             },
             "Export": {
               "Name": "sls-api-proy-dev-NewUnderscoremedsLambdaFunctionQualifiedArn"
@@ -690,7 +845,7 @@
           "NewUnderscorefarmaciaLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "NewUnderscorefarmaciaLambdaVersionxPZ6c5GJZvONfr80OeweNV2zkNHsRkyIJ7JDJ8sYT8E"
+              "Ref": "NewUnderscorefarmaciaLambdaVersiontMpjYlWqoeksDNnlC8ZaNSm1vCePCIfQi93Hnurzl4"
             },
             "Export": {
               "Name": "sls-api-proy-dev-NewUnderscorefarmaciaLambdaFunctionQualifiedArn"
@@ -699,7 +854,7 @@
           "CreatefarmaciaTLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreatefarmaciaTLambdaVersionqCsnvs9lCeK6VOHEnydrZRlNTMXOV6HHppXOKXUk0"
+              "Ref": "CreatefarmaciaTLambdaVersionxss1rJNoLoeJZRh5ze0jJPcL2gOzPwNHmjH8V9CMRY"
             },
             "Export": {
               "Name": "sls-api-proy-dev-CreatefarmaciaTLambdaFunctionQualifiedArn"
@@ -844,7 +999,7 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "ScanUnderscoremedsLambdaVersioni225yoWwpwRh92Sr75haGAUoHFsoFIiTnUiTDlzLn0"
+        "versionLogicalId": "ScanUnderscoremedsLambdaVersionFHcqozYZeSnkOdGNr83rsi2mcaV2w0NEkvvioSk"
       },
       "new_meds": {
         "handler": "new_meds.lambda_handler",
@@ -859,14 +1014,14 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "NewUnderscoremedsLambdaVersionRVXVkndGZTnnRExYoA4RQkPFt7BeLvZx8lRMpFlYfI"
+        "versionLogicalId": "NewUnderscoremedsLambdaVersionr5cK6TtGXxqWkNpdhTzei84yws0HzaE3KeyTwMwxY"
       },
       "new_farmacia": {
         "handler": "new_farmacia.lambda_handler",
         "events": [
           {
             "http": {
-              "path": "crear-farmacia",
+              "path": "farmacia/crear",
               "method": "post",
               "cors": {
                 "origin": "*",
@@ -885,7 +1040,41 @@
                 ],
                 "allowCredentials": false
               },
-              "integration": "AWS_PROXY"
+              "integration": "AWS",
+              "request": {
+                "passThrough": "NEVER"
+              },
+              "response": {
+                "statusCodes": {
+                  "200": {
+                    "pattern": ""
+                  },
+                  "400": {
+                    "pattern": "[\\s\\S]*\\[400\\][\\s\\S]*"
+                  },
+                  "401": {
+                    "pattern": "[\\s\\S]*\\[401\\][\\s\\S]*"
+                  },
+                  "403": {
+                    "pattern": "[\\s\\S]*\\[403\\][\\s\\S]*"
+                  },
+                  "404": {
+                    "pattern": "[\\s\\S]*\\[404\\][\\s\\S]*"
+                  },
+                  "422": {
+                    "pattern": "[\\s\\S]*\\[422\\][\\s\\S]*"
+                  },
+                  "500": {
+                    "pattern": "[\\s\\S]*(Process\\s?exited\\s?before\\s?completing\\s?request|\\[500\\])[\\s\\S]*"
+                  },
+                  "502": {
+                    "pattern": "[\\s\\S]*\\[502\\][\\s\\S]*"
+                  },
+                  "504": {
+                    "pattern": "([\\s\\S]*\\[504\\][\\s\\S]*)|(.*Task timed out after \\d+\\.\\d+ seconds$)"
+                  }
+                }
+              }
             }
           }
         ],
@@ -895,7 +1084,7 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "NewUnderscorefarmaciaLambdaVersionxPZ6c5GJZvONfr80OeweNV2zkNHsRkyIJ7JDJ8sYT8E"
+        "versionLogicalId": "NewUnderscorefarmaciaLambdaVersiontMpjYlWqoeksDNnlC8ZaNSm1vCePCIfQi93Hnurzl4"
       },
       "createfarmaciaT": {
         "handler": "create_farmacia.lambda_handler",
@@ -920,7 +1109,7 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "CreatefarmaciaTLambdaVersionqCsnvs9lCeK6VOHEnydrZRlNTMXOV6HHppXOKXUk0"
+        "versionLogicalId": "CreatefarmaciaTLambdaVersionxss1rJNoLoeJZRh5ze0jJPcL2gOzPwNHmjH8V9CMRY"
       }
     },
     "resources": {
@@ -1010,7 +1199,7 @@
           ".requirements.zip"
         ],
         "artifact": "/Users/lenin.chavez/Documents/cloud/final_project/api-medicamentos/.serverless/api-proy.zip",
-        "artifactDirectoryName": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z"
+        "artifactDirectoryName": "serverless/api-proy/dev/1701041737387-2023-11-26T23:35:37.387Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -1024,7 +1213,7 @@
     "artifact": "/Users/lenin.chavez/Documents/cloud/final_project/api-medicamentos/.serverless/api-proy.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/api-proy/dev/1701039881804-2023-11-26T23:04:41.804Z",
+    "artifactDirectoryName": "serverless/api-proy/dev/1701041737387-2023-11-26T23:35:37.387Z",
     "artifact": "api-proy.zip"
   }
 }
