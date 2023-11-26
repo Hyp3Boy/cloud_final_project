@@ -65,12 +65,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: fabricant_id
             AttributeType: S
-          - AttributeName: name
+          - AttributeName: info
             AttributeType: S
         KeySchema:
           - AttributeName: fabricant_id
             KeyType: HASH
-          - AttributeName: name
+          - AttributeName: info
             KeyType: RANGE
         # Set the capacity to auto-scale
         BillingMode: PAY_PER_REQUEST

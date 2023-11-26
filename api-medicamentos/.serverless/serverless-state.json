@@ -110,7 +110,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api-proy/dev/1700988226436-2023-11-26T08:43:46.436Z/api-proy.zip"
+                "S3Key": "serverless/api-proy/dev/1701022424568-2023-11-26T18:13:44.568Z/api-proy.zip"
               },
               "Handler": "scan_meds.lambda_handler",
               "Runtime": "python3.9",
@@ -136,7 +136,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api-proy/dev/1700988226436-2023-11-26T08:43:46.436Z/api-proy.zip"
+                "S3Key": "serverless/api-proy/dev/1701022424568-2023-11-26T18:13:44.568Z/api-proy.zip"
               },
               "Handler": "new_meds.lambda_handler",
               "Runtime": "python3.9",
@@ -155,24 +155,24 @@
               "NewUnderscoremedsLogGroup"
             ]
           },
-          "ScanUnderscoremedsLambdaVersionwfRvHZS5FtOUrcV7kfJ3lXBTOvHHGheKYmBciTu7Ctk": {
+          "ScanUnderscoremedsLambdaVersionjBafe3N3szc55MzEBP8syWXmMIqlgfQKWLclPz80": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ScanUnderscoremedsLambdaFunction"
               },
-              "CodeSha256": "mjihW71J22a78SBQEbrH4vhiWGLBQI8mc4mWZYMlpYQ="
+              "CodeSha256": "2OSzyVJrWm5uRxd3qWEo40C6/BNBUILYxmtvTtOdtjM="
             }
           },
-          "NewUnderscoremedsLambdaVersionFhmWsMbnyTcgTTgr4vC2smg4H38CcaoHJI1kWuOE3pI": {
+          "NewUnderscoremedsLambdaVersion6IY3NEglM86nRx7YnuRgAq4st1b5zPmp5MxeCSAYhg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "NewUnderscoremedsLambdaFunction"
               },
-              "CodeSha256": "mjihW71J22a78SBQEbrH4vhiWGLBQI8mc4mWZYMlpYQ="
+              "CodeSha256": "2OSzyVJrWm5uRxd3qWEo40C6/BNBUILYxmtvTtOdtjM="
             }
           },
           "S3BucketDevmedsimagen": {
@@ -262,7 +262,7 @@
                   "AttributeType": "S"
                 },
                 {
-                  "AttributeName": "name",
+                  "AttributeName": "info",
                   "AttributeType": "S"
                 }
               ],
@@ -272,7 +272,7 @@
                   "KeyType": "HASH"
                 },
                 {
-                  "AttributeName": "name",
+                  "AttributeName": "info",
                   "KeyType": "RANGE"
                 }
               ],
@@ -292,7 +292,7 @@
           "ScanUnderscoremedsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ScanUnderscoremedsLambdaVersionwfRvHZS5FtOUrcV7kfJ3lXBTOvHHGheKYmBciTu7Ctk"
+              "Ref": "ScanUnderscoremedsLambdaVersionjBafe3N3szc55MzEBP8syWXmMIqlgfQKWLclPz80"
             },
             "Export": {
               "Name": "sls-api-proy-dev-ScanUnderscoremedsLambdaFunctionQualifiedArn"
@@ -301,7 +301,7 @@
           "NewUnderscoremedsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "NewUnderscoremedsLambdaVersionFhmWsMbnyTcgTTgr4vC2smg4H38CcaoHJI1kWuOE3pI"
+              "Ref": "NewUnderscoremedsLambdaVersion6IY3NEglM86nRx7YnuRgAq4st1b5zPmp5MxeCSAYhg"
             },
             "Export": {
               "Name": "sls-api-proy-dev-NewUnderscoremedsLambdaFunctionQualifiedArn"
@@ -419,7 +419,7 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "ScanUnderscoremedsLambdaVersionwfRvHZS5FtOUrcV7kfJ3lXBTOvHHGheKYmBciTu7Ctk"
+        "versionLogicalId": "ScanUnderscoremedsLambdaVersionjBafe3N3szc55MzEBP8syWXmMIqlgfQKWLclPz80"
       },
       "new_meds": {
         "handler": "new_meds.lambda_handler",
@@ -434,7 +434,7 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "NewUnderscoremedsLambdaVersionFhmWsMbnyTcgTTgr4vC2smg4H38CcaoHJI1kWuOE3pI"
+        "versionLogicalId": "NewUnderscoremedsLambdaVersion6IY3NEglM86nRx7YnuRgAq4st1b5zPmp5MxeCSAYhg"
       }
     },
     "resources": {
@@ -449,7 +449,7 @@
                 "AttributeType": "S"
               },
               {
-                "AttributeName": "name",
+                "AttributeName": "info",
                 "AttributeType": "S"
               }
             ],
@@ -459,7 +459,7 @@
                 "KeyType": "HASH"
               },
               {
-                "AttributeName": "name",
+                "AttributeName": "info",
                 "KeyType": "RANGE"
               }
             ],
@@ -497,7 +497,7 @@
           ".requirements.zip"
         ],
         "artifact": "/Users/lenin.chavez/Documents/cloud/final_project/api-medicamentos/.serverless/api-proy.zip",
-        "artifactDirectoryName": "serverless/api-proy/dev/1700988226436-2023-11-26T08:43:46.436Z"
+        "artifactDirectoryName": "serverless/api-proy/dev/1701022424568-2023-11-26T18:13:44.568Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -511,7 +511,7 @@
     "artifact": "/Users/lenin.chavez/Documents/cloud/final_project/api-medicamentos/.serverless/api-proy.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/api-proy/dev/1700988226436-2023-11-26T08:43:46.436Z",
+    "artifactDirectoryName": "serverless/api-proy/dev/1701022424568-2023-11-26T18:13:44.568Z",
     "artifact": "api-proy.zip"
   }
 }

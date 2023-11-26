@@ -7,12 +7,19 @@ except ImportError:
 import boto3
 import urllib.parse
 import json
-import trp.trp2 as t2
 import random
 
 print("Loading function")
 s3 = boto3.client("s3")
 textract = boto3.client("textract", region_name="us-east-1")
+
+
+def extract_text(response, extract_by="LINE"):
+    text = ""
+    for item in response["Blocks"]:
+        if item["BlockType"] == extract_by:
+            text += item["Text"] + "\n"
+    return text
 
 
 def generate_random_code():
@@ -23,29 +30,25 @@ def generate_random_code():
 
 
 def get_textract_data(bucket_name, document_key):
-    # TODO
     print("Loading getTextractData")
     # Call Amazon Textract
     print(textract)
-    # response = textract.analyze_document(
-    #     Document={"S3Object": {"Bucket": bucket_name, "Name": document_key}},
-    #     FeatureTypes=["LAYOUT"],
-    # )
 
-    input_document = {"S3Object": {"Bucket": bucket_name, "Name": document_key}}
-    document = textract.analyze_document(
-        file_source=input_document, feature_types=["LAYOUT"], save_image=True
+    response = textract.detect_document_text(
+        Document={"S3Object": {"Bucket": bucket_name, "Name": document_key}}
     )
 
-    # d = t2.TDocumentSchema().load(response)
-    # page = d.pages[0]
-    # page = response["Blocks"][0]
+    print(json.dumps(response))
 
     data_dict = {}
 
-    data_dict["NAME"] = document.pages[0].page_layout.titles[0].text
-    # data_dict["NAME"] = "Paracetamol"
+    raw_text = extract_text(response, extract_by="LINE")
 
+    # All the raw text in one line
+    string_text = raw_text.replace("\n", " ")
+    string_text = string_text.replace("\u00ae", " ")
+
+    data_dict["INFO"] = string_text
     data_dict["CODIGO"] = generate_random_code()
 
     return data_dict
@@ -63,15 +66,16 @@ def lambda_handler(event, context):
 
     try:
         response = get_textract_data(bucket, key)
-        medname = response["NAME"]
+        medinfo = response["INFO"]
         sns_client = boto3.client("sns")
         response_sns = sns_client.publish(
             TopicArn="arn:aws:sns:us-east-1:223794358031:NuevoMedicamento",
             Subject="Nuevo Medicamento",
             Message=json.dumps(response),
+            # Add fabricant_id to Message
             MessageAttributes={
                 "fabricant_id": {"DataType": "String", "StringValue": fabricant_id},
-                "name": {"DataType": "String", "StringValue": medname},
+                "info": {"DataType": "String", "StringValue": medinfo},
             },
         )
 
