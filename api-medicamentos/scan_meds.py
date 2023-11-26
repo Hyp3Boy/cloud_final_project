@@ -9,7 +9,6 @@ import urllib.parse
 import json
 import trp.trp2 as t2
 import random
-from textractor.data.constants import TextractFeatures
 
 print("Loading function")
 s3 = boto3.client("s3")
@@ -35,7 +34,7 @@ def get_textract_data(bucket_name, document_key):
 
     input_document = {"S3Object": {"Bucket": bucket_name, "Name": document_key}}
     document = textract.analyze_document(
-        file_source=input_document, features=[TextractFeatures.LAYOUT], save_image=True
+        file_source=input_document, feature_types=["LAYOUT"], save_image=True
     )
 
     # d = t2.TDocumentSchema().load(response)
