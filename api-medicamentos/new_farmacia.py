@@ -5,12 +5,12 @@ import boto3
 def lambda_handler(event, context):
     # Entrada (json)
     print(event)  # Revisar en CloudWatch
-    event = json.loads(event["Records"][0]["body"])
-    tenantId = event["tenant_id"]
-    farmacia_name = event["farmacia_name"]
+    data = event["body"]
+    tenant_id = data["tenant_id"]
+    farmacia_name = data["farmacia_name"]
     # Proceso
     farmacia = {
-        "tenant_id": tenantId,
+        "tenant_id": tenant_id,
         "farmacia_name": farmacia_name,
     }
     # Publicar en SNS
@@ -20,7 +20,7 @@ def lambda_handler(event, context):
         Subject="Nueva Farmacia",
         Message=json.dumps(farmacia),
         MessageAttributes={
-            "tenant_id": {"DataType": "String", "StringValue": tenantId},
+            "tenant_id": {"DataType": "String", "StringValue": tenant_id},
             "farmacia_name": {"DataType": "String", "StringValue": farmacia_name},
         },
     )
